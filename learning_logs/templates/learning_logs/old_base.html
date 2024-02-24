@@ -1,0 +1,25 @@
+<!--父模板，包含所有页面都有的元素，其他模板都继承于它-->
+<!--第一部分创建包含项目名的段落，也是到主页的链接 。
+1、创建连接时使用了模板标签，用{}表示，里面生成要在页面中显示的信息。
+模板标签{ url 'learning_logs:index' }生成一个URL，与在learning_logs/urls.py中定义的名为index的URL模式匹配。
+本例中，learning_logs是一个命名空间，index是该命名空间中一个名称独特的URL模式。
+命名空间来自在文件learning_logs/urls.py中赋给app_name的值。
+2、在简单的HTML页面中，链接是使用锚标签<a>定义的
+3、模板标签是一小段代码，用花括号跟百分号表示，指向learning_logs/urls.py中匹配的格式
+-->
+<p>
+    <a href="{% url 'learning_logs:index' %}">Learning Log</a> - <!--这里添加一个连字符"-"，再添加使用模板标签{url}指向所有主题的链接-->
+    <a href="{% url 'learning_logs:topics' %}">Topics</a> - <!--这行让Django生成链接，与learning_logs/url.py中名为topics的URL模式匹配。-->
+    {% if user.is_authenticated %} <!--Django身份验证系统中，每个模板都可用变量user，有属性is_authenticated.-->
+      Hello,{{ user.username }}.
+      <a href="{% url 'users:logout' %}">Log out</a>
+    {% else %}
+      <a href="{% url 'users:register' %}">Register</a>-
+      <a href="{% url 'users:login' %}">Log in</a>
+    {% endif %}
+</p>
+<!--通过模板标签生成URL，能确保链接是最新的：只需修改urls.py中的URL模式，Django就会在页面下次被请求时自动插入修改后的URL。-->
+
+{% block content %}{% endblock content %}
+<!--这里插入一对 块标签 。块名为 content ,是一个占位符，包含的信息由子模版指定。子模板并非必须定义父模板中的每个块。
+所以可以在父模板多预留块来预留空间。>

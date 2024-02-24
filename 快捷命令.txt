@@ -1,0 +1,15 @@
+开启虚拟环境：
+ll_env\Scripts\activate
+关闭虚拟环境：
+deactivate
+
+打开服务器
+(虚拟环境下：)
+python manage.py runserver
+
+打开后按
+ctrl + pause 退出
+或 crtl + c
+
+网页
+http://127.0.0.1:8000/

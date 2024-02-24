@@ -1,0 +1,30 @@
+<!--用户请求users的登录页面时，Django将使用默认视图函数，但也要为这个页面提供模板。默认的身份验证视图在文件夹registration中查找-->
+{% extends "learning_logs/base.html" %} <!--继承base模板，确保跟其他网站页面外观一致-->
+
+{% load bootstrap4 %}
+
+{% block page_header %}
+  <h2>Log in to your account.</h2>
+{% endblock page_header %}
+
+{% block content %}
+  <!--
+  {% if form.errors %} <bootstrap后没这个，可选择注释掉这行跟后面两行。bootstrap4会自动处理。错误信息时的提醒，if判断>
+    <p>Your username and password didn't match. Please try again.</p>
+  {% endif %}
+  -->
+
+  <form method="post" action="{% url 'users:login' %}" class="form"> <!--添加clas=“form”-->
+    <!--让登录视图对表单进行处理，将实参action设置为登录页面的URL-->
+    {% csrf_token %}
+    {% bootstrap_form form %} <!--使用这个来显示表单，标签模板{% bootstrap_form%}将bootstrap样式应用于各个表单-->
+
+    {% buttons %}<!--bootstrap4起始模板标签，将bootstrap样式应用于按钮-->
+      <button name="submit" class="btn btn-primary">Log in</button><!--提交按钮-->
+    {% endbuttons %}
+
+    <input type="hidden" name="next"
+         value="{% url 'learning_logs:index' %}" /><!--隐藏的表单元素next，value告诉Django登录成功后重定向到什么地方：返回主页-->
+  </form>
+
+{% endblock content %}

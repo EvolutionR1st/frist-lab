@@ -1,0 +1,85 @@
+{% load bootstrap4 %} <!--加载django-bootsrap4中的模板标签集-->
+<!DOCTYPE html> <!--声明为html文档-->
+<html lang="en"> <!--声明使用英语-->
+<head> <!--头部不包含任何内容，只是向浏览器提供正确显示页面所需信息-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Learning Log</title> <!--在浏览器打开网页学习笔记时，标题栏显示title元素的内容-->
+
+    {%bootstrap_css%} <!--django-bootstrap4的一个自定义模板标签，让bootstrap包含所有样式文件-->
+    {%bootstrap_javascript jquery='full'%} <!--启用所有标签行为如折叠导航栏-->
+</head>
+
+<!--适配手机窄屏幕与电脑宽屏幕，分三部分定义导航栏-->
+<body><!--主体开始，页面上的内容展示-->
+  <nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
+      <!--nav元素，导航链接部分.
+      对元素内的部分，都将根据此处navbar和navbar-expand-md等选择器定义的bootstrap样式规则来设置样式。
+      选择器决定了样式规则将应用于页面上的哪些元素。
+      navbar-light bg-light选择使用浅色主题设置导航栏颜色。
+      md表示下边距，4的数值确保导航栏页面其他部分之间有一些空白区域。
+      border在浅色背景周围添加很细的边框，将导航栏与页面其他部分分开。-->
+
+      <a class="navbar-brand" href="{% url 'learning_logs:index'%}">
+          Learning Log
+      </a>
+      <!--指定在导航栏最左端显示项目名并设置为到主页的链接，将出现在这个项目的每个页面中。
+      选择器navbar-brand设置这个链接的样式，使得其比其他链接更显眼。-->
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse"
+              data-target="#navbarCollapse" aria-controls="navbarCollapse"
+              aria-expanded="false" aria-lable="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <!--定义了一个按钮，将在浏览窗口太窄，无法水平显示整个导航栏时显示出来。单机按钮回出现下拉列表，包含所有导航元素
+      用户缩小浏览窗口或在屏幕较小的移动设备上显示网站时，collapse会导致导航栏折叠起来。-->
+
+      <!--开启导航栏的新区域。div是division分隔的缩写。
+      在div起始标签中定义的样式和行为规范将影响下一个结束标签/div之间的所有元素。
+      这里定义了屏幕或窗口太窄时将折叠起来的导航栏部分的起始位置。-->
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto"><!--定义了一组链接。-->
+              <li class="nav-item"><!--这里只有一个列表项-到显示所有主题的页面链接。-->
+                  <a class="nav-link" href="{% url 'learning_logs:topics'% }">Topics</a>
+              </li>
+          </ul>
+
+          <ul class="navbar-nav ml-auto"><!--用起始标签ul定义了另一组链接。选择器ml-auto表示自动左边距。确保在右侧-->
+              {% if user.is_authenticated %}<!--判断是否登录-->
+                <li class="nav-item">
+                    <span class="navbar-text">Hello,{{user.username}}.</span>
+                    <!--span元素用于设置区域内一系列文本或元素样式。-->
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-link" href="{% url 'users:logout'%}">Log out</a>
+                </li>
+              {% else %}
+                <li class="nav-item">
+                    <a class="navbar-link" href="{% url 'users:register'%}">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-link" href="{% url 'users:login'%}">Log in</a>
+                </li>
+              {% endif %}
+          </ul>
+      </div><!--div元素（屏幕太窄时折叠起来的导航栏部分）结束-->
+  </nav><!--导航链接部分结束-->
+  <!--要在导航栏添加其他链接，可在既有ul元素添加li元素并设置样式。-->
+
+  <!--定义两个块，供各个页面放置其特有内容。-->
+  <main role="main" class="container"><!--main起始标签，main元素用于定义页面主体的最重要部分。
+  这里定义了bootstrap选择器container，一种对页面元素进行编组的简单方式。在容器中放置两个div元素。-->
+      <div class="pb-2 mb-2 border-bottom">
+          <!--第一个元素包含一个page_header块，在大多数页面使用它指定标题。
+          pb-2指将下内边距设置为合适的值。标题下面添加边框，所以使用选择器border-bottom，在page_header块的下面添加细框-->
+          {% block page_header %}{% endblock page_header %}
+      </div>
+      <div>
+          <!--第二个元素未指定样式，在具体页面中，可根据需要设置内容样式。-->
+          {% block content %}{% endblock content %}
+      </div>
+  </main>
+
+</body>
+
+</html>

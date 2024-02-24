@@ -1,0 +1,2 @@
+在当前文件夹有一个数据库
+PS D:\python_casecode\learning_log>git init

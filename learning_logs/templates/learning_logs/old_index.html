@@ -1,0 +1,9 @@
+<!--其中<p></p>标签用于标识段落。前者指出段落开头，后者指出结尾。-->
+<!--标题-->
+<!-- <p>Learning Log</p> 旧的这个标题被换了。新的extends用来说明继承父模板-->
+{% extends  "learning_logs/base.html" %}
+<!--上面这行 代码导入模板base.html的所有内容，让index.html能够指定要在content块预留的空间中添加的内容。-->
+<!--下面是描述部分，其中{block c}用来标识块标签部分。不从父模板中继承的内容都包含在content块中。-->
+{% block content %}
+<p>Learning Log helps you keep track of your  learning, for any topic you're learning about.</p>
+{% endblock content %}<!--标签{ endblock c}指出内容定义结束的位置，{endb}不一定指定块名称，但是有多个的时候指定比较好-->

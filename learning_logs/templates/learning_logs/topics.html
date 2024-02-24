@@ -1,0 +1,27 @@
+{% extends "learning_logs/base.html" %} <!--使用extends 来继承base.html，再定义content块。-->
+
+<!--这个文件没有用bootstrap4的自定义标签，所以不用写标签load bootstrap4-->
+
+{% block page_header %}
+  <h1>Topics</h1>
+{% endblock page_header %}
+
+{% block content %}
+
+    <ul> <!--页面主题是个项目列表，html中成为无序列表，用标签<ul>表示。-->
+        {% for topic in topics %} <!--相当于for循环的模板标签,遍历调用topics.html文件的字典context中的列表topics-->
+            <li><h3>
+                <a href="{% url 'learning_logs:topic' topic.id %}">{{topic}}</a>
+                <!--使用模板标签url根据learning_logs中名为topic的URL模式生成了合适的链接。
+                URL模式需要提供实参topic_id，所以在模板属性添加了topic.id。其中topic.id检查主题并获取其id值，而topic_id是指向该id的引用。
+                现在主页列表都是链接了对应到相应主题。
+                -->
+            </h3></li> <!--HTML标签<li>中的内容表示项目列表项。 要将变量打印，要用双花括号 把变量名括起来。双花括号里面的是模板变量。-->
+        {% empty %} <!--标签模板{ empty }告诉Django列表topics为空时怎么办。-->
+        <li><h3>No topics have been added yet.</h3></li>
+        {% endfor %} <!--模板中，要用{ endfor }显式地指出for循环的结束。结束for循环用-->
+    </ul> <!--结束项目列表用-->
+
+    <h3><a href="{% url 'learning_logs:new_topic' %}">Add a new topic</a></h3>
+
+{% endblock content %}

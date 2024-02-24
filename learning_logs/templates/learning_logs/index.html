@@ -1,0 +1,22 @@
+<!--其中<p></p>标签用于标识段落。前者指出段落开头，后者指出结尾。-->
+<!--标题-->
+<!-- <p>Learning Log</p> 旧的这个标题被换了。新的extends用来说明继承父模板-->
+{% extends  "learning_logs/base.html" %}
+<!--上面这行 代码导入模板base.html的所有内容，让index.html能够指定要在content块预留的空间中添加的内容。-->
+<!--下面是描述部分，其中{block c}用来标识块标签部分。不从父模板中继承的内容都包含在content块中。-->
+
+<!---->
+{% block page_header %}<!--告诉django接下来定义page_header块包含的内容。-->
+  <div class="jumbotron"><!--jumbotron就是应用了一系列样式设置命令的div元素。
+  这里使用选择器jumbotron应用这组来自bootstrap库的样式设置指令。-->
+      <h1 class="dispaly-3">Track oyour learning.</h1><!--h1是一级标题。display-3让标题更窄更高-->
+
+      <p class="lead">Make your own Learning Log, and keep a list of the topics you're learning about.
+      Whenever you learn something new about a topic,make an entry sumarizing what you've learned.</p>
+
+      <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}"
+         role="button">Register %raquo;</a>
+      <!--创建按钮（非文本链接）邀请用户注册。代码%raquo是一个HTML实体，表示“>>”符号-->
+
+  </div>
+{% endblock page_header %}<!--结束块，如无其他内容则不需要定义content块。-->

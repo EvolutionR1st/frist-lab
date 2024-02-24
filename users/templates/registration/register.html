@@ -1,0 +1,15 @@
+{% extends "learning_logs/base.html" %} <!--继承base模板，确保跟其他网站页面外观一致-->
+
+{% block content %}
+
+  <form method="post" action="{% url 'users:register' %}">
+    <!--让登录视图对表单进行处理，将实参action设置为注册页面的URL-->
+    {% csrf_token %}
+    {{ form.as_p }}<!--as_p让Django正确显示表单所有字段，包括错误信息-->
+
+    <button name="submit">Register</button><!--提交按钮-->
+    <input type="hidden" name="next"
+         value="{% url 'learning_logs:index' %}" /><!--隐藏的表单元素next，value告诉Django登录成功后重定向到什么地方：返回主页-->
+  </form>
+
+{% endblock content %}

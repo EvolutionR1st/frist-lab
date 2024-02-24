@@ -1,0 +1,32 @@
+{% extends 'learning_logs/base.html' %} <!--继承于base.html-->
+<!--设置单个topic的页面包含更多内容。使用bootstrap的card组件完成每个条目。card是带灵活的预定义样式的div，适合显示主题条目。-->
+
+{% block page_header %}<!--将主题放page_header块-->
+  <h3>{{ topic }}</h3>
+{% endblock page_header %}
+
+{% block content %}
+
+    <p>
+        <a href="{% url 'learning_logs:new_entry' topic.id %}">Add a new entry</a>
+    </p>
+
+{% for entry in entries %} <!--遍历条目-->
+  <div class="card mb-3"><!--不将每个条目作为一个列表项，创建一个带选择器card的div元素。-->
+      <h4 class="card-header"><!--div元素里的嵌套元素，是哥标题，带选择器card-header的h4元素。-->
+          {{ entry.date_added | date:'M d, Y H:i' }} <!--列出时间戳，显示属性date_added的值，“|”表示模板过滤器，对模板的值进行修改。-->
+          <!--date:'M d, Y H:i'的过滤器显示如月，天，年，时间-->
+          <small><!--编辑条目放置small条目，看起来比时间元素小一点。-->
+              <a href="{%url 'learning_logs:edit_enty' entry.id %}">Edit entry</a> <!--放在每个条目后面 -->
+          </small>
+      </h4>
+
+      <div class="card-body"><!--第二个嵌套条目，带选择器card-body的div元素。将条目内容放框内。-->
+            {{ entry.text | linebreaks }}<!--显示text的完整值，不仅仅50字。linebreaks过滤器将包含换行符的长条目转换为浏览器能理解的格式，以免不间断显示。-->
+      </div>
+  </div>
+  {% empty %} <!--当无内容时打印下面的信息。-->
+        <p>There are no entries for this topic yet.</p>
+{% endfor %}
+
+{% endblock content %}
