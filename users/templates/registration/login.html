@@ -17,7 +17,7 @@
   <form method="post" action="{% url 'users:login' %}" class="form"> <!--添加clas=“form”-->
     <!--让登录视图对表单进行处理，将实参action设置为登录页面的URL-->
     {% csrf_token %}
-    {% bootstrap_form form %} <!--使用这个来显示表单，标签模板{% bootstrap_form%}将bootstrap样式应用于各个表单-->
+    {% bootstrap_form form %} <!--使用这个来显示表单，标签模板bootstrap_form将bootstrap样式应用于各个表单-->
 
     {% buttons %}<!--bootstrap4起始模板标签，将bootstrap样式应用于按钮-->
       <button name="submit" class="btn btn-primary">Log in</button><!--提交按钮-->

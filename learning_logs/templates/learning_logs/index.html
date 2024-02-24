@@ -9,13 +9,13 @@
 {% block page_header %}<!--告诉django接下来定义page_header块包含的内容。-->
   <div class="jumbotron"><!--jumbotron就是应用了一系列样式设置命令的div元素。
   这里使用选择器jumbotron应用这组来自bootstrap库的样式设置指令。-->
-      <h1 class="dispaly-3">Track oyour learning.</h1><!--h1是一级标题。display-3让标题更窄更高-->
+      <h1 class="dispaly-3">Track your learning.</h1><!--h1是一级标题。display-3让标题更窄更高-->
 
       <p class="lead">Make your own Learning Log, and keep a list of the topics you're learning about.
       Whenever you learn something new about a topic,make an entry sumarizing what you've learned.</p>
 
       <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}"
-         role="button">Register %raquo;</a>
+         role="button">Register &raquo;</a>
       <!--创建按钮（非文本链接）邀请用户注册。代码%raquo是一个HTML实体，表示“>>”符号-->
 
   </div>
