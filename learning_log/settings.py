@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-95r#z#%bfgs^_cg!o#%mkiljgc1h_rx$i*6d1y+i#!2x=nq=+c
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [testwebb.onrender.com]
+ALLOWED_HOSTS = []
+# https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 
 # Application definition
